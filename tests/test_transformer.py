@@ -30,9 +30,3 @@ class TestHTMLToMarkdownTransformer(unittest.TestCase):
         result = convert_to_markdown(html)
         self.assertIn("```", result)
         self.assertIn('print("Hello World")', result)
-
-    def test_article_url_appending(self):
-        html = "<p>Helpful info</p>"
-        url = "https://support.optisigns.com/hc/en-us/articles/123"
-        result = convert_to_markdown(html, url)
-        self.assertIn("Article URL: https://support.optisigns.com/hc/en-us/articles/123", result)

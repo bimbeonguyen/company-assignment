@@ -147,16 +147,27 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
         body_html = article.get("body") or ""
         art_id = article["id"]
         art_ts = iso_to_timestamp(article["updated_at"])
-        
-        # Ensure url uses the public support.optisigns.com domain
-        html_url = article.get("html_url") or ""
-        if "optisigns.zendesk.com" in html_url:
-            html_url = html_url.replace("optisigns.zendesk.com", "support.optisigns.com")
+        art_url = article["html_url"]
 
-        # Convert to Markdown (this appends Article URL: <url> at the end of the document body)
-        markdown_content = convert_to_markdown(body_html, html_url)
-        # Prepend Title header to the markdown body
-        full_content = f"# {title}\n\n{markdown_content}"
+        # Convert to Markdown
+        markdown_content = convert_to_markdown(body_html)
+        
+        # Build the actual document body (starting with title)
+        doc_body = f"# {title}\n\n{markdown_content}"
+        
+        # Number each line of the document body starting from L1
+        lines = doc_body.split("\n")
+        numbered_lines = [f"[L{i+1}] {line}" for i, line in enumerate(lines)]
+        numbered_body = "\n".join(numbered_lines)
+
+        # Prepend Citation Marker and metadata header to the markdown body
+        citation_header = (
+            f"Citation Marker: {{CITATION_START}}cite{{CITATION_DELIMITER}}file_{art_id}{{CITATION_STOP}}\n"
+            f"Title: {title}\n"
+            f"URL: {art_url}\n"
+            f"Updated: {article.get('updated_at', '')}\n\n"
+        )
+        full_content = f"{citation_header}{numbered_body}"
 
         # Write to temporary file
         filename = f"optibot_{art_id}_{art_ts}.md"

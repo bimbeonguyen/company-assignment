@@ -46,7 +46,7 @@ def main():
     scraper = ZendeskScraper()
 
     try:
-        active_articles = scraper.fetch_articles(1)
+        active_articles = scraper.fetch_articles()
     except Exception as e:
         logger.error(f"Failed to fetch articles from Zendesk: {e}")
         sys.exit(1)
