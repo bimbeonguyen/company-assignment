@@ -1,0 +1,29 @@
+# Environment variables
+.env
+*.env
+
+# IDEs
+.idea/
+.vscode/
+
+# Python cache and byte-code
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Assignment specs and local design docs to exclude from push
+requirement.md
+issues.md
+CONTEXT.md
+prd.md
+
