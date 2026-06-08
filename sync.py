@@ -147,9 +147,14 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
         body_html = article.get("body") or ""
         art_id = article["id"]
         art_ts = iso_to_timestamp(article["updated_at"])
+        
+        # Ensure url uses the public support.optisigns.com domain
+        html_url = article.get("html_url") or ""
+        if "optisigns.zendesk.com" in html_url:
+            html_url = html_url.replace("optisigns.zendesk.com", "support.optisigns.com")
 
-        # Convert to Markdown
-        markdown_content = convert_to_markdown(body_html)
+        # Convert to Markdown (this appends Article URL: <url> at the end of the document body)
+        markdown_content = convert_to_markdown(body_html, html_url)
         # Prepend Title header to the markdown body
         full_content = f"# {title}\n\n{markdown_content}"
 
