@@ -141,8 +141,10 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
     articles_to_upload = deltas["add"] + [art for art, _, _ in deltas["update"]]
     uploaded_count = 0
     vs_client = get_vector_stores_client(client)
+    index = 0
 
     for article in articles_to_upload:
+        index += 1
         title = article["title"]
         body_html = article.get("body") or ""
         art_id = article["id"]
