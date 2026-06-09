@@ -9,6 +9,7 @@ jobs:
     env:
       OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_VECTOR_STORE_ID: ${{ secrets.OPENAI_VECTOR_STORE_ID }}
+      LOGTAIL_TOKEN: ${{ secrets.LOGTAIL_TOKEN }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
