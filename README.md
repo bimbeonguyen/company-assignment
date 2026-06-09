@@ -63,6 +63,6 @@ docker run -e OPENAI_API_KEY="your_api_key" -e OPENAI_VECTOR_STORE_ID="your_vs_i
 
 ## Playground Sanity Check Screenshot
 
-*(Placeholder for the screenshot showing the verified Assistant query: "How do I add a YouTube video?")*
+*("How do I add a YouTube video?")*
 
 ![Playground Answer Screenshot](playground_verification.png)
