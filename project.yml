@@ -14,4 +14,4 @@ packages:
           - name: daily-sync-trigger
             sourceType: scheduler
             sourceDetails:
-              cron: "50 15 * * *"  # Once per day
+              cron: "0 16 * * *"  # Once per day
