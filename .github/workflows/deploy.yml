@@ -17,6 +17,6 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - name: Connect to Functions Namespace
-        run: doctl serverless install && doctl serverless connect hammerhead-fn-namespace
+        run: doctl serverless install && doctl serverless connect shark-fn-namespace
       - name: Deploy Functions
         run: doctl serverless deploy . --remote-build
