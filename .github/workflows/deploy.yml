@@ -16,7 +16,7 @@ jobs:
         uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Install Serverless Plugin
-        run: doctl serverless install
+      - name: Connect to Functions Namespace
+        run: doctl serverless connect hammerhead-fn-namespace
       - name: Deploy Functions
         run: doctl serverless deploy . --remote-build
