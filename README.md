@@ -15,6 +15,7 @@ An automated, delta-only scraper and sync pipeline that retrieves support articl
 
 1. **Install Python dependencies**:
    ```bash
+   cd packages/scrapebot/app
    pip install -r requirements.txt
    ```
 
@@ -27,12 +28,12 @@ An automated, delta-only scraper and sync pipeline that retrieves support articl
 
 3. **Run local tests**:
    ```bash
-   python -m pytest
+   $env:PYTHONPATH="packages/scrapebot/app"; python -m pytest
    ```
 
 4. **Execute the sync script**:
    ```bash
-   python __main__.py
+   python packages/scrapebot/app/__main__.py
    ```
 
 ---

@@ -1,6 +1,7 @@
 environment:
   OPENAI_API_KEY: "${OPENAI_API_KEY}"
   OPENAI_VECTOR_STORE_ID: "${OPENAI_VECTOR_STORE_ID}"
+  LOG_DESTINATIONS: '[{"logtail":{"token":"${LOGTAIL_TOKEN}"}}]'
 
 packages:
   - name: scrapebot
@@ -14,4 +15,4 @@ packages:
           - name: daily-sync-trigger
             sourceType: scheduler
             sourceDetails:
-              cron: "15 10 * * *"  # Once per day
+              cron: "0 0 * * *"  # Once per day

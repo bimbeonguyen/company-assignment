@@ -46,7 +46,7 @@ def main():
     scraper = ZendeskScraper()
 
     try:
-        active_articles = scraper.fetch_articles(1)
+        active_articles = scraper.fetch_articles()
     except Exception as e:
         logger.error(f"Failed to fetch articles from Zendesk: {e}")
         sys.exit(1)
@@ -58,7 +58,7 @@ def main():
     logger.info(f"Fetched {len(active_articles)} articles from Zendesk Help Center.")
 
     # Run sync process
-    temp_dir = "./temp_sync_docs"
+    temp_dir = "./articles"
     logger.info(f"Starting Vector Store sync (ID: {vs_id})...")
     try:
         stats = sync_vector_store(client, vs_id, active_articles, temp_dir)

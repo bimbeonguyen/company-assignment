@@ -160,13 +160,13 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
         # Number each line of the document body starting from L1
         lines = doc_body.split("\n")
         numbered_lines = [f"[L{i+1}] {line}" for i, line in enumerate(lines)]
-        numbered_body = "\n".join(numbered_lines)
+        numbered_body = "\n\n".join(numbered_lines)
 
         # Prepend Citation Marker and metadata header to the markdown body
         citation_header = (
-            f"Citation Marker: \ue200cite\ue202file{index}\ue201\n"
-            f"Title: {title}\n"
-            f"URL: {art_url}\n"
+            f"Citation Marker: \ue200cite\ue202file{index}\ue201\n\n"
+            f"Title: {title}\n\n"
+            f"URL: {art_url}\n\n"
             f"Updated: {article.get('updated_at', '')}\n\n"
         )
         full_content = f"{citation_header}{numbered_body}"
@@ -193,9 +193,8 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
         except Exception as e:
             logger.error(f"Failed to upload/attach file {filename}: {e}")
         finally:
-            # Clean up temporary local file
-            if os.path.exists(filepath):
-                os.remove(filepath)
+            # Keep the generated markdown files on disk
+            pass
 
     return {
         "added": len(deltas["add"]),
