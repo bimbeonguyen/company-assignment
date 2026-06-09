@@ -69,3 +69,30 @@ class TestZendeskScraper(unittest.TestCase):
         self.assertEqual(len(articles), 2)
         self.assertEqual(articles[0]["id"], 1)
         self.assertEqual(articles[1]["id"], 2)
+
+    @patch('time.sleep')
+    @patch('requests.get')
+    def test_fetch_articles_rate_limit_retry(self, mock_get, mock_sleep):
+        # First request hits a 429 Rate Limit
+        mock_response_429 = MagicMock()
+        mock_response_429.status_code = 429
+        mock_response_429.headers = {"Retry-After": "10"}
+
+        # Second request succeeds
+        mock_response_200 = MagicMock()
+        mock_response_200.status_code = 200
+        mock_response_200.json.return_value = {
+            "articles": [{"id": 1, "title": "Article 1", "body": "...", "html_url": "url1", "updated_at": "2026-06-08T12:00:00Z"}],
+            "count": 1,
+            "next_page": None
+        }
+
+        mock_get.side_effect = [mock_response_429, mock_response_200]
+
+        scraper = ZendeskScraper()
+        articles = scraper.fetch_articles()
+
+        # Should sleep for 10 seconds (from Retry-After header)
+        mock_sleep.assert_called_once_with(10)
+        self.assertEqual(mock_get.call_count, 2)
+        self.assertEqual(len(articles), 1)
