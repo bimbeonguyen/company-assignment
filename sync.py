@@ -162,7 +162,7 @@ def sync_vector_store(client: OpenAI, vs_id: str, active_articles, temp_dir: str
 
         # Prepend Citation Marker and metadata header to the markdown body
         citation_header = (
-            f"Citation Marker: {{CITATION_START}}cite{{CITATION_DELIMITER}}file_{art_id}{{CITATION_STOP}}\n"
+            f"Citation Marker: \ue200cite\ue202file{index}\ue201\n"
             f"Title: {title}\n"
             f"URL: {art_url}\n"
             f"Updated: {article.get('updated_at', '')}\n\n"

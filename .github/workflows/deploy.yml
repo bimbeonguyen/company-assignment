@@ -1,0 +1,22 @@
+name: Deploy Functions to DigitalOcean
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_VECTOR_STORE_ID: ${{ secrets.OPENAI_VECTOR_STORE_ID }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Install DigitalOcean CLI (doctl)
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Install Serverless Plugin
+        run: doctl serverless install
+      - name: Deploy Functions
+        run: doctl serverless deploy . --remote-build

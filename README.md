@@ -22,9 +22,7 @@ An automated, delta-only scraper and sync pipeline that retrieves support articl
    Create a `.env` file at the root (use `.env.sample` as a template):
    ```ini
    OPENAI_API_KEY=your_openai_api_key
-   OPENAI_ASSISTANT_ID=your_assistant_id
-   # Optional: Will auto-create a Vector Store and print its ID if empty
-   OPENAI_VECTOR_STORE_ID=
+   OPENAI_VECTOR_STORE_ID=your_openai_vector_store_id
    ```
 
 3. **Run local tests**:
@@ -57,7 +55,6 @@ docker run -e OPENAI_API_KEY="your_api_key" -e OPENAI_VECTOR_STORE_ID="your_vs_i
 4. Set the trigger to **Scheduled** and configure the cron schedule (e.g., `0 0 * * *` for daily at midnight).
 5. Add the required Environment Variables:
    - `OPENAI_API_KEY`
-   - `OPENAI_ASSISTANT_ID`
    - `OPENAI_VECTOR_STORE_ID`
 6. Save and run. Daily execution logs will be available in the DO App Platform dashboard.
 

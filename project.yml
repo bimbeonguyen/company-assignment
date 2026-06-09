@@ -1,0 +1,18 @@
+targetArea: serverless
+environment:
+  OPENAI_API_KEY: "${OPENAI_API_KEY}"
+  OPENAI_VECTOR_STORE_ID: "${OPENAI_VECTOR_STORE_ID}"
+
+packages:
+  - name: scrapebot
+    functions:
+      - name: sync
+        runtime: 'python:default'
+        web: false  # Keep function private, only triggered by scheduler
+        limits:
+          timeout: 900000  # 15 minutes limit (OpenAI file uploads can take time)
+        triggers:
+          - name: daily-sync-trigger
+            sourceType: scheduler
+            sourceDetails:
+              cron: "45 15 * * *"  # Once per day

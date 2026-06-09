@@ -46,7 +46,7 @@ def main():
     scraper = ZendeskScraper()
 
     try:
-        active_articles = scraper.fetch_articles()
+        active_articles = scraper.fetch_articles(1)
     except Exception as e:
         logger.error(f"Failed to fetch articles from Zendesk: {e}")
         sys.exit(1)
@@ -70,11 +70,23 @@ def main():
         logger.info(f"Files Skipped (No Change):  {stats['skipped']}")
         logger.info(f"Successfully Synced:        {stats['uploaded_successfully']} / {stats['added'] + stats['updated']} files")
         logger.info("======================================================")
+        return {
+            "body": {
+                "message": "Sync completed successfully",
+                "stats": stats
+            },
+            "statusCode": 200
+        }
     except Exception as e:
         logger.error(f"Sync process failed: {e}")
         sys.exit(1)
 
-    sys.exit(0)
+    return {
+        "body": {
+            "message": "Sync failed",
+        },
+        "statusCode": 400
+    }
 
 if __name__ == "__main__":
     main()
