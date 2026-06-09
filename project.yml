@@ -5,7 +5,7 @@ environment:
 packages:
   - name: scrapebot
     functions:
-      - name: sync
+      - name: app
         runtime: 'python:default'
         web: false  # Keep function private, only triggered by scheduler
         limits:

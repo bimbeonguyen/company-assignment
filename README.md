@@ -32,7 +32,7 @@ An automated, delta-only scraper and sync pipeline that retrieves support articl
 
 4. **Execute the sync script**:
    ```bash
-   python main.py
+   python __main__.py
    ```
 
 ---
