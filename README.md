@@ -48,6 +48,8 @@ docker run -e OPENAI_API_KEY="your_api_key" -e OPENAI_VECTOR_STORE_ID="your_vs_i
 
 ---
 
+## Bot logs URL: https://stream-logs.vercel.app/
+
 ## Playground Sanity Check Screenshot
 
 *("How do I add a YouTube video?")*
