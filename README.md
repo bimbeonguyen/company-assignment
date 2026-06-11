@@ -11,6 +11,14 @@ An automated, delta-only scraper and sync pipeline that retrieves support articl
 
 ---
 
+## Chunking Strategy
+
+This project leverages OpenAI's native **`"auto"` chunking strategy** inside the Vector Store File Search tool. 
+
+By uploading clean Markdown documents, OpenAI automatically parses and splits the files. It leverages Markdown structural syntax (e.g., headings, list tags, and paragraph breaks) to keep related instructions together, preventing code blocks or step-by-step instructions from being fragmented across separate chunks.
+
+---
+
 ## Setup & Local Running
 
 1. **Install Python dependencies**:
